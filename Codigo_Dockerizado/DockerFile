@@ -1,0 +1,15 @@
+# Establece la imagen base
+FROM python:3.9
+
+# Establece el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copia el código fuente al directorio de trabajo del contenedor
+COPY code.py /app
+
+# Instala las dependencias necesarias
+# Si tu código requiere bibliotecas adicionales, puedes agregarlas aquí
+# Ejemplo: RUN pip install nombre-de-la-biblioteca
+
+# Define el comando que se ejecutará cuando se inicie el contenedor
+CMD ["python", "code.py"]
