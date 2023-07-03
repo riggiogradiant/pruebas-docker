@@ -1,0 +1,16 @@
+#Con este docker-compose lanzo 2 imagenes en la misma network, así estan conectados en tre si 
+version: '3'
+
+services:
+  container1:
+    image: <nombre_de_la_imagen1>
+    networks:
+      - mynetwork
+
+  container2:
+    image: <nombre_de_la_imagen2>
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
