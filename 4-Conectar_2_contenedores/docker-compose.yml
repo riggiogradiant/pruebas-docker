@@ -1,16 +1,48 @@
 #Con este docker-compose lanzo 2 imagenes en la misma network, así estan conectados en tre si 
-version: '3'
+# version: '3'
+
+# services:
+#   container1:
+#     image: <nombre_de_la_imagen1>
+#     networks:
+#       - mynetwork
+
+#   container2:
+#     image: <nombre_de_la_imagen2>
+#     networks:
+#       - mynetwork
+
+# networks:
+#   mynetwork:
+
+version: '3.1'
 
 services:
-  container1:
-    image: <nombre_de_la_imagen1>
-    networks:
-      - mynetwork
+  # Configuración del servicio de WordPress
+  wordpress:
+    container_name: servidor_wp
+    image: wordpress
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db                    # Host de la base de datos para WordPress
+      WORDPRESS_DB_USER: user_wp               # Usuario de la base de datos para WordPress
+      WORDPRESS_DB_PASSWORD: asdasd            # Contraseña de la base de datos para WordPress
+      WORDPRESS_DB_NAME: bd_wp                 # Nombre de la base de datos para WordPress
+    ports:
+      - 80:80                                 # Mapeo del puerto 80 del contenedor al puerto 80 del host
+    volumes:
+      - /opt/wordpress:/var/www/html/wp-content    # Montaje de un volumen para persistir los datos de WordPress
 
-  container2:
-    image: <nombre_de_la_imagen2>
-    networks:
-      - mynetwork
+  # Configuración del servicio de la base de datos
+  db:
+    container_name: servidor_mysql
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: bd_wp                   # Nombre de la base de datos para MySQL
+      MYSQL_USER: user_wp                      # Usuario de la base de datos para MySQL
+      MYSQL_PASSWORD: asdasd                   # Contraseña de la base de datos para MySQL
+      MYSQL_ROOT_PASSWORD: asdasd              # Contraseña de root para la base de datos de MySQL
+    volumes:
+      - /opt/mysql_wp:/var/lib/mysql          # Montaje de un volumen para persistir los datos de MySQL
 
-networks:
-  mynetwork:

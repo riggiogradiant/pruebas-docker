@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  escritor:
+    build:
+      context: .
+      dockerfile: DockerFile-escritor
+    volumes:
+      - ./data:/app/data
+    networks:
+      - mynetwork
+
+  lector:
+    build:
+      context: .
+      dockerfile: DockerFile-lector
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - escritor
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:

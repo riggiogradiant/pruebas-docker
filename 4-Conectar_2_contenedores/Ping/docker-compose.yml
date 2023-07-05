@@ -1,0 +1,26 @@
+version: '3'
+services:
+  container1:
+    image: ubuntu:latest
+    networks:
+      - net_A
+      - net_B
+    tty: true
+    stdin_open: true
+    restart: always
+
+  container2:
+    image: ubuntu:latest
+    networks:
+      - net_A
+      - net_B
+    tty: true
+    stdin_open: true
+    restart: always
+
+networks:
+  net_A:
+    external: true
+
+  net_B:
+    external: true
